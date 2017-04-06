@@ -1,3 +1,6 @@
+# encoding=UTF-8
+from __future__ import print_function
+
 # Define keys
 
 #class KeyPatten(object):
@@ -68,9 +71,9 @@ for key_datum in key_data:
     if key_code in key_patterns[mask]:
         old_label = key_patterns[mask][code]
         if old_label != label:
-            print 'Warning: key_patterns[%s][%s] old value %s being overwritten with %s' % (mask, key_code, old_label, label)
+            print('Warning: key_patterns[%s][%s] old value %s being overwritten with %s' % (mask, key_code, old_label, label))
     if key_code != (key_code & mask):
-        print 'Warning: key_code %s for key label %s will never trigger using mask %s' % (key_code, label, mask)
+        print('Warning: key_code %s for key label %s will never trigger using mask %s' % (key_code, label, mask))
     key_patterns[mask][key_code] = label
     #if not label in key_patterns[mask]:
     #    key_patterns[mask][label] = set()

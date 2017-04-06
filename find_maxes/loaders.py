@@ -1,12 +1,14 @@
 #! /usr/bin/env python
+# encoding=UTF-8
 
+from __future__ import print_function
 from pylab import *
 
 # Make sure that caffe is on the python path:
 caffe_root = '../../'  # this file is expected to be in {caffe_root}/experiments/something
 import sys
 loadpath = caffe_root + 'python_cpu'
-print '= = = CAFFE LOADER: LOADING CPU VERSION from path: %s = = =' % loadpath
+print('= = = CAFFE LOADER: LOADING CPU VERSION from path: %s = = =' % loadpath)
 sys.path.insert(0, loadpath)     # Use CPU compiled code for backprop vis/etc
 import caffe
 caffe.set_mode_cpu()
@@ -27,9 +29,9 @@ def load_trained_net(model_prototxt = None, model_weights = None):
         model_prototxt = load_dir + 'deploy_1.prototxt'
         model_weights = load_dir + 'caffe_imagenet_train_iter_450000'
 
-    print 'LOADER: loading net:'
-    print '  ', model_prototxt
-    print '  ', model_weights
+    print('LOADER: loading net:')
+    print('  ', model_prototxt)
+    print('  ', model_weights)
     net = caffe.Classifier(model_prototxt, model_weights)
     #net.set_phase_test()
 

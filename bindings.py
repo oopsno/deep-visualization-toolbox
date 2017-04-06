@@ -1,3 +1,4 @@
+# encoding=UTF-8
 # Define key bindings
 
 from keys import key_patterns

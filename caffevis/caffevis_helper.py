@@ -1,7 +1,14 @@
+# encoding=UTF-8
+
+from __future__ import print_function
 import numpy as np
 
 from image_misc import get_tiles_height_width, caffe_load_image
 
+import six
+
+if not six.PY2:
+    xrange = range
 
 
 def net_preproc_forward(net, img, data_hw):
@@ -18,17 +25,17 @@ def get_pretty_layer_name(settings, layer_name):
     has_old_settings = hasattr(settings, 'caffevis_layer_pretty_names')
     has_new_settings = hasattr(settings, 'caffevis_layer_pretty_name_fn')
     if has_old_settings and not has_new_settings:
-        print ('WARNING: Your settings.py and/or settings_local.py are out of date.'
-               'caffevis_layer_pretty_names has been replaced with caffevis_layer_pretty_name_fn.'
-               'Update your settings.py and/or settings_local.py (see documentation in'
-               'setttings.py) to remove this warning.')
+        print('WARNING: Your settings.py and/or settings_local.py are out of date.'
+              'caffevis_layer_pretty_names has been replaced with caffevis_layer_pretty_name_fn.'
+              'Update your settings.py and/or settings_local.py (see documentation in'
+              'setttings.py) to remove this warning.')
         return settings.caffevis_layer_pretty_names.get(layer_name, layer_name)
 
     ret = layer_name
     if hasattr(settings, 'caffevis_layer_pretty_name_fn'):
         ret = settings.caffevis_layer_pretty_name_fn(ret)
     if ret != layer_name:
-        print '  Prettified layer name: "%s" -> "%s"' % (layer_name, ret)
+        print('  Prettified layer name: "%s" -> "%s"' % (layer_name, ret))
     return ret
 
 
@@ -108,10 +115,10 @@ def check_force_backward_true(prototxt_file):
                 break
 
     if not found:
-        print '\n\nWARNING: the specified prototxt'
-        print '"%s"' % prototxt_file
-        print 'does not contain the line "force_backward: true". This may result in backprop'
-        print 'and deconv producing all zeros at the input layer. You may want to add this line'
-        print 'to your prototxt file before continuing to force backprop to compute derivatives'
-        print 'at the data layer as well.\n\n'
+        print('\n\nWARNING: the specified prototxt')
+        print('"%s"' % prototxt_file)
+        print('does not contain the line "force_backward: true". This may result in backprop')
+        print('and deconv producing all zeros at the input layer. You may want to add this line')
+        print('to your prototxt file before continuing to force backprop to compute derivatives')
+        print('at the data layer as well.\n\n')
 

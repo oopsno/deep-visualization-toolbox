@@ -1,8 +1,11 @@
+# encoding=UTF-8
 # Settings for Deep Visualization Toolbox
 #
 # Note: Probably don't change anything in this file. To override
 # settings, define them in settings_local.py rather than changing them
 # here.
+
+from __future__ import print_function
 
 import os
 import sys
@@ -95,9 +98,9 @@ if global_scale != 1.0:
 # All window configuation information is now contained in the
 # window_panes variable. Print if desired:
 if debug_window_panes:
-    print 'Final window panes and locations/sizes (i, j, i_size, j_size):'
+    print('Final window panes and locations/sizes (i, j, i_size, j_size):')
     for pane in window_panes:
-        print '  Pane: %s' % repr(pane)
+        print('  Pane: %s' % repr(pane))
 
 help_pane_loc = locals().get('help_pane_loc', (.07, .07, .86, .86))    # as a fraction of main window
 window_background = locals().get('window_background', (.2, .2, .2))

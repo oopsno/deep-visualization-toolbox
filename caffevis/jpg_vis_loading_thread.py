@@ -1,3 +1,6 @@
+# encoding=UTF-8
+
+from __future__ import print_function
 import os
 import time
 import numpy as np
@@ -23,7 +26,7 @@ class JPGVisLoadingThread(CodependentThread):
         self.debug_level = 0
         
     def run(self):
-        print 'JPGVisLoadingThread.run called'
+        print('JPGVisLoadingThread.run called')
         
         while not self.is_timed_out():
             with self.state.lock:
@@ -69,7 +72,7 @@ class JPGVisLoadingThread(CodependentThread):
                 img_corner = crop_to_corner(img, 2)
                 images[0] = ensure_uint255_and_resize_to_fit(img_corner, resize_shape)
             except IOError:
-                print '\nAttempted to load file %s but failed. To supress this warning, remove layer "%s" from settings.caffevis_jpgvis_layers' % (jpg_path, state_layer)
+                print('\nAttempted to load file %s but failed. To supress this warning, remove layer "%s" from settings.caffevis_jpgvis_layers' % (jpg_path, state_layer))
                 pass
 
             # 1. e.g. max_im/conv1/conv1_0037.jpg
@@ -114,4 +117,4 @@ class JPGVisLoadingThread(CodependentThread):
                 self.state.jpgvis_to_load_key = None
                 self.state.drawing_stale = True
 
-        print 'JPGVisLoadingThread.run: finished'
+        print('JPGVisLoadingThread.run: finished')

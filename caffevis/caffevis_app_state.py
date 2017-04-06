@@ -1,3 +1,6 @@
+# encoding=UTF-8
+
+from __future__ import print_function
 import time
 from threading import Lock
 
@@ -15,7 +18,7 @@ class CaffeVisAppState(object):
         if hasattr(self.settings, 'caffevis_filter_layers'):
             for name in self._layers:
                 if self.settings.caffevis_filter_layers(name):
-                    print '  Layer filtered out by caffevis_filter_layers: %s' % name
+                    print('  Layer filtered out by caffevis_filter_layers: %s' % name)
             self._layers = filter(lambda name: not self.settings.caffevis_filter_layers(name), self._layers)
         self.net_layer_info = net_layer_info
         self.layer_boost_indiv_choices = self.settings.caffevis_boost_indiv_choices   # 0-1, 0 is noop
@@ -106,7 +109,7 @@ class CaffeVisAppState(object):
             elif tag == 'pattern_mode':
                 self.pattern_mode = not self.pattern_mode
                 if self.pattern_mode and not hasattr(self.settings, 'caffevis_unit_jpg_dir'):
-                    print 'Cannot switch to pattern mode; caffevis_unit_jpg_dir not defined in settings.py.'
+                    print('Cannot switch to pattern mode; caffevis_unit_jpg_dir not defined in settings.py.')
                     self.pattern_mode = False
             elif tag == 'show_back':
                 # If in pattern mode: switch to fwd/back. Else toggle fwd/back mode

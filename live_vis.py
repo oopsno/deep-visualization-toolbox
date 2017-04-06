@@ -1,4 +1,7 @@
 #! /usr/bin/env python
+# encoding=UTF-8
+
+from __future__ import print_function
 
 import sys
 import importlib
@@ -11,7 +14,7 @@ import glob
 try:
     import cv2
 except ImportError:
-    print 'Error: Could not import cv2, please install it first.'
+    print('Error: Could not import cv2, please install it first.')
     raise
 
 from misc import WithTimer
@@ -53,9 +56,9 @@ class LiveVis(object):
 
         for module_path, app_name in settings.installed_apps:
             module = importlib.import_module(module_path)
-            print 'got module', module
+            print('got module', module)
             app_class  = getattr(module, app_name)
-            print 'got app', app_class
+            print('got app', app_class)
             self.app_classes[app_name] = app_class
 
         for app_name, app_class in self.app_classes.iteritems():
@@ -126,7 +129,7 @@ class LiveVis(object):
 
         heartbeat_functions = [self.input_updater.heartbeat]
         for app_name, app in self.apps.iteritems():
-            print 'Starting app:', app_name
+            print('Starting app:', app_name)
             app.start()
             heartbeat_functions.extend(app.get_heartbeats())
 
@@ -225,7 +228,7 @@ class LiveVis(object):
                 # Only redraw pane debug if display will be updated
                 if hasattr(self.settings, 'debug_window_panes') and self.settings.debug_window_panes:
                     for pane_name,pane in self.panes.iteritems():
-                        print pane_name, pane
+                        print(pane_name, pane)
                         pane.data[:] = pane.data * .5
                         line = [FormattedString('%s |' % pane_name, self.debug_pane_defaults),
                                 FormattedString('pos: %d,%d |' % (pane.i_begin, pane.j_begin), self.debug_pane_defaults),
@@ -255,7 +258,7 @@ class LiveVis(object):
             # Extra sleep just for debugging. In production all main loop sleep should be in cv2.waitKey.
             #time.sleep(2)
 
-        print '\n\nTrying to exit run_loop...'
+        print('\n\nTrying to exit run_loop...')
         self.input_updater.quit = True
         self.input_updater.join(.01 + float(self.settings.input_updater_sleep_after_read_frame) * 5)
         if self.input_updater.is_alive():
@@ -264,10 +267,10 @@ class LiveVis(object):
             self.input_updater.free_camera()
 
         for app_name, app in self.apps.iteritems():
-            print 'Quitting app:', app_name
+            print('Quitting app:', app_name)
             app.quit()
 
-        print 'Input thread joined and apps quit; exiting run_loop.'
+        print('Input thread joined and apps quit; exiting run_loop.')
 
     def handle_key_pre_apps(self, key):
         tag = self.bindings.get_tag(key)
@@ -289,7 +292,7 @@ class LiveVis(object):
             self.help_mode = not self.help_mode
         elif tag == 'stretch_mode':
             self.input_updater.toggle_stretch_mode()
-            print 'Stretch mode is now', self.input_updater.static_file_stretch_mode
+            print('Stretch mode is now', self.input_updater.static_file_stretch_mode)
         elif tag == 'debug_level':
             self.debug_level = (self.debug_level + 1) % 3
             for app_name, app in self.apps.iteritems():
@@ -308,11 +311,11 @@ class LiveVis(object):
             key_label, masked_vals = self.bindings.get_key_label_from_keycode(key, extra_info = True)
             masked_vals_pp = ', '.join(['%d (%s)' % (mv, hex(mv)) for mv in masked_vals])
             if key_label is None:
-                print 'Got key code %d (%s), did not match any known key (masked vals tried: %s)' % (key, hex(key), masked_vals_pp)
+                print('Got key code %d (%s), did not match any known key (masked vals tried: %s)' % (key, hex(key), masked_vals_pp))
             elif tag is None:
-                print 'Got key code %d (%s), matched key "%s", but key is not bound to any function' % (key, hex(key), key_label)
+                print('Got key code %d (%s), matched key "%s", but key is not bound to any function' % (key, hex(key), key_label))
             else:
-                print 'Got key code %d (%s), matched key "%s", bound to "%s", but nobody handled "%s"' % (
+                print('Got key code %d (%s), matched key "%s", bound to "%s", but nobody handled "%s"' % ()
                     key, hex(key), key_label, tag, tag)
 
     def display_frame(self, frame):
@@ -345,4 +348,4 @@ class LiveVis(object):
 
 
 if __name__ == '__main__':
-    print 'You probably want to run ./run_toolbox.py instead.'
+    print('You probably want to run ./run_toolbox.py instead.')
