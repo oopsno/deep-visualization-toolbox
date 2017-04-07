@@ -315,8 +315,7 @@ class LiveVis(object):
             elif tag is None:
                 print('Got key code %d (%s), matched key "%s", but key is not bound to any function' % (key, hex(key), key_label))
             else:
-                print('Got key code %d (%s), matched key "%s", bound to "%s", but nobody handled "%s"' % ()
-                    key, hex(key), key_label, tag, tag)
+                print('Got key code %d (%s), matched key "%s", bound to "%s", but nobody handled "%s"' % (key, hex(key), key_label, tag, tag))
 
     def display_frame(self, frame):
         frame_disp = cv2.resize(frame[:], self.panes['input'].data.shape[:2][::-1])

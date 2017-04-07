@@ -322,7 +322,7 @@ class CaffeVisApp(BaseApp):
                 status.write('| FPS: %.01f' % fps)
 
             if self.state.extra_msg:
-                status.write('|', self.state.extra_msg)
+                status.write('| %s' % self.state.extra_msg)
                 self.state.extra_msg = ''
 
         strings = [FormattedString(line, defaults) for line in status.getvalue().split('\n')]
